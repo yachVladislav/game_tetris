@@ -167,14 +167,14 @@ module.exports = tetrisCanvas;
 var colors = ['#00af9d','#ffb652','#cd66cc','#66bc29','#0096db','#3a7dda','#ffe100'];
 
 //sidebar width
-var sideWidth = 120;
+var sideWidth = 120;//120
 
 
 //scene column count
-var columnCount = 10;
+var columnCount = 50;//10
 
 //scene row count;
-var rowCount = 20;
+var rowCount = 100;//20
 
 //previewCount
 var previewCount = 6;
@@ -188,10 +188,10 @@ var sceneBgEnd = '#5c6975';
 //preview background color
 var previewBg = '#2f2f2f';
 
-//grid line color
+//цвет решётки поля
 var gridLineColor = 'rgba(255,255,255,0.2)';
 
-//box border color
+//цвет решётки фигуры
 var boxBorderColor = 'rgba(255,255,255,0.5)';
 
 

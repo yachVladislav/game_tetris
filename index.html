@@ -1,39 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="x-ua-compatible" content="ie=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Tetris</title>
-
-	<link rel="stylesheet" href="css/styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тетрис Меню</title>
+    <link rel="stylesheet" href="css/menu_style.css">
 </head>
-<body>
-<div id="tetris">
-	<canvas id="scene"></canvas>
-	<div id="gameOver">
-		<h1>Game Over !</h1>
-		<h3>Score: <span id="finalScore">0</span></h3>
-		<h2><a href="#" id="restart">Restart</a></h2>
-		
-	</div>
-	<div id="side">
-		<div id="info">
-			<h1 id="levelInfo">Level: <br><span id="level">1</span></h1>
-			<h2 id="scoreInfo">Score: <br><span id="score" >0</span></h2>
-			<div id="rewardInfo" class="invisible">+<span id="reward">0</span></div>
-			<canvas id="preview"></canvas>
-		</div>
-	</div>
+<body style="background: url('img/background.jpg') fixed center; background-size: cover;">
+
+<div id="menu">
+    <h1 id="title_menu">Тетрис</h1>
+    <div class="button-container">
+        <a href="tetris.html"><button>Старт игры</button></a>
+        <button onclick="showLeaderboard()">Таблица рекордов</button>
+        <button onclick="showSettings()">Настройки</button>  
+    </div>
 </div>
 
+<div id="settings" class="hidden">
+    <h2>Настройки</h2>
+    <form id="settingsForm">
+        <label for="fieldSize">Размер поля:</label>
+        <input type="number" id="fieldSize" name="fieldSize" min="5" max="20" value="10">
 
+        <label for="speed">Скорость:</label>
+        <input type="number" id="speed" name="speed" min="1" max="10" value="5">
+
+        <label for="playerName">Имя игрока:</label>
+        <input type="text" id="playerName" name="playerName" value="Игрок">
+
+        <button type="button" onclick="saveSettings()">Сохранить</button>
+    </form>
+</div>
+
+<div id="leaderboard" class="hidden">
+    <h2>Таблица рекордов</h2>
+    <ul id="leaderboardList"></ul>
+</div>
+
+<script src="dist/menu.js"></script>
 </body>
-<script src="dist/tetris.js"></script>
-<script>
-	(function(){
-		var tetris = new Tetris('tetris');
-		tetris.start();
-	})();
-</script>
 </html>
