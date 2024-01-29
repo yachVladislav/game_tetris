@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Таблица Рекордов</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        th, td {
+            background-color: #ddd;
+            border: 1px solid #000000;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4caf50;
+            color: white;
+        }
+    </style>
+</head>
+<body style="background: url('img/solut.gif') fixed center; background-size: cover;">
+    <h2 style="color: aliceblue;">Таблица Рекордов</h2>
+    <table id="leaderboard">
+        <thead>
+            <tr>
+                <th>Место</th>
+                <th>Имя игрока</th>
+                <th>Счет</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Тут будут добавлены записи из localStorage с использованием JavaScript -->
+        </tbody>
+    </table>
+
+    <script>
+        // Загрузка данных из localStorage
+        var leaderboardData = JSON.parse(localStorage.getItem('userList')) || [];
+        //localStorage.clear();
+        console.log(leaderboardData);
+        // Отсортировать данные по счету в убывающем порядке
+        leaderboardData.sort(function(a, b) {
+            return b.score - a.score;
+        });
+
+        // Получить элемент tbody
+        var tbody = document.querySelector('#leaderboard tbody');
+
+        // Заполнить таблицу данными из localStorage
+        leaderboardData.forEach(function(item, index) {
+            var row = document.createElement('tr');
+            var placeCell = document.createElement('td');
+            var nameCell = document.createElement('td');
+            var scoreCell = document.createElement('td');
+
+            placeCell.textContent = index + 1;
+            nameCell.textContent = item.username;
+            scoreCell.textContent = item.score;
+
+            row.appendChild(placeCell);
+            row.appendChild(nameCell);
+            row.appendChild(scoreCell);
+
+            tbody.appendChild(row);
+        });
+    </script>
+</body>
+</html>

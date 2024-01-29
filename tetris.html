@@ -14,7 +14,7 @@
 	<div id="gameOver">
 		<h1>Game Over !</h1>
 		<h3>Score: <span id="finalScore">0</span></h3>
-		<h2><a href="#" id="restart">Restart</a></h2>
+		<h2><a href="#" id="restart" onclick="restartGame()">Restart</a></h2>
 		
 	</div>
 	<div id="side">
@@ -37,9 +37,26 @@
 		var storedBoardWidth = parseInt(localStorage.getItem('boardWidth'));
 		var storedBoardHeight = parseInt(localStorage.getItem('boardHeight'));
 		var storedSpeed = parseInt(localStorage.getItem('speed'));
+		if (storedPlayerName) {
 
-		var tetris = new Tetris('tetris', storedSpeed, storedBoardWidth, storedBoardHeight);
-		tetris.start();
+			tetris = new Tetris('tetris', storedSpeed, storedBoardWidth, storedBoardHeight);
+			tetris.start();
+		} else {
+			alert('Настройте игру и сохраните настройки!!!');
+			window.location.href = 'index.html';
+		}
 	})();
+</script>
+<script>
+	function restartGame() {
+		var storedList = localStorage.getItem('userList');
+		var userList = JSON.parse(storedList) || [];
+
+		var newUser = { username: localStorage.getItem('playerName'), score: tetris.score};
+		userList.push(newUser);
+
+		localStorage.setItem('userList', JSON.stringify(userList));
+		console.log('Обновленный список пользователей:', userList);
+	}
 </script>
 </html>
