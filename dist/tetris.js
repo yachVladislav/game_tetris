@@ -364,8 +364,11 @@ var defaults = {
 /**
 	Tetris main object defination
 */
-function Tetris(id){
+function Tetris(id, speed, column, rows){
 	this.id = id;
+	consts.DEFAULT_INTERVAL = speed;
+	consts.ROW_COUNT = rows;
+	consts.COLUMN_COUNT = column;
 	this.init();
 }
 

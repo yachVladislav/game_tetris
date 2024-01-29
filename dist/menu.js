@@ -1,7 +1,5 @@
 function showSettings() {
-    document.getElementById('menu').classList.add('hidden');
-    document.getElementById('settings').classList.remove('hidden');
-    document.getElementById('leaderboard').classList.add('hidden');
+    console.log(defaultInterval);
 }
 
 function startGame() {
