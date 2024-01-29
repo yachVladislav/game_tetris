@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Настройки игры</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            margin-left: 20vw;
+            margin-top: 5vw;
+            height: 32vw;
+        }
+
+        .settings-container {
+            background-color: #333;
+            padding: 3vw;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            color: #ffffff;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 1vw 2vw;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body style="background: url('img/background_setting.gif') fixed center; background-size: cover;">
+    <div class="settings-container">
+        <h2 style="color: #fff;">Настройки игры</h2>
+        <form id="gameSettingsForm">
+            <label for="playerName">Имя игрока:</label>
+            <input type="text" id="playerName" name="playerName" value="${localStorage.getItem('playerName') || 'User'}" required>
+
+            <label for="boardWidth">Ширина поля:</label>
+            <input type="number" id="boardWidth" name="boardWidth" min="10" max="100" value="20" required>
+
+            <label for="boardHeight">Высота поля:</label>
+            <input type="number" id="boardHeight" name="boardHeight" min="20" max="200" value="40" required readonly>
+
+            <label for="speed">Скорость:</label>
+            <input type="number" id="speed" name="speed" min="200" max="800" value="600" required>
+
+            <button style="margin-left: 5vw;" type="button" onclick="startGame()">Сохранить</button>
+        </form>
+    </div>
+    <script>
+        function setHeightTwiceWidth() {
+            var boardWidth = parseInt(document.getElementById('boardWidth').value, 10);
+            var boardHeight = boardWidth * 2;
+
+            document.getElementById('boardHeight').value = boardHeight;
+        }
+        document.getElementById('boardWidth').addEventListener('input', setHeightTwiceWidth);
+
+        window.onload = function() {
+            var playerNameInput = document.getElementById('playerName');
+            var storedPlayerName = localStorage.getItem('playerName');
+
+            var boardWidthInput = document.getElementById('boardWidth');
+            var storedBoardWidth = localStorage.getItem('boardWidth');
+
+            var boardHeightInput = document.getElementById('boardHeight');
+            var storedBoardHeight = localStorage.getItem('boardHeight');
+
+            var speedInput = document.getElementById('speed');
+            var storedSpeed = localStorage.getItem('speed');
+    
+            if (storedPlayerName) {
+                playerNameInput.value = storedPlayerName;
+            } else {
+                playerNameInput.value = 'User';
+            }
+
+            if (storedBoardWidth) {
+                boardWidthInput.value = storedBoardWidth;
+            } else {
+                boardWidthInput.value = 20;
+            }
+
+            if (storedBoardHeight) {
+                boardHeightInput.value = storedBoardHeight;
+            } else {
+                boardHeightInput.value = 40;
+            }
+
+            if (storedSpeed) {
+                speedInput.value = storedSpeed;
+            } else {
+                speedInput.value = 600;
+            }
+        };
+    </script>
+    <script>
+        function startGame() {
+            var playerName = document.getElementById('playerName').value;
+            var boardWidth = document.getElementById('boardWidth').value;
+            var boardHeight = document.getElementById('boardHeight').value;
+            var speed = document.getElementById('speed').value;
+            
+            localStorage.setItem('playerName', playerName);
+            localStorage.setItem('boardWidth', boardWidth);
+            localStorage.setItem('boardHeight', boardHeight);
+            localStorage.setItem('speed', speed);
+
+            console.log('Имя игрока:', playerName);
+            console.log('Ширина поля:', boardWidth);
+            console.log('Высота поля:', boardHeight);
+            console.log('Скорость:', speed);
+
+            alert('Настройки сохранены! Имя игрока: ' + playerName);
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

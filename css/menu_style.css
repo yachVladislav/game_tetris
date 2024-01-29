@@ -29,7 +29,7 @@ body {
 
 #menu .button-container {
     display: flex;
-    flex-direction: column; /* Устанавливаем направление расположения элементов в столбец */
+    flex-direction: column;
     margin-top: 5vw;
 }
 
@@ -42,7 +42,7 @@ body {
     cursor: pointer;
     border: none;
     border-radius: 5px;
-    margin-bottom: 10px; /* Добавлен отступ между кнопками */
+    margin-bottom: 10px;
 } 
 
 #menu button:hover {
