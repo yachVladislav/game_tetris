@@ -51,14 +51,16 @@ var drawGrids = function(el,gridSize,colCount,rowCount,color1,color2){
 };
 
 //Draw box of shape (shape is the composition of boxes)
-var drawBox = function(ctx,color,x,y,gridSize){
+var drawBox = function(ctx,color,x,y,gridSize,level){
 			if (y<0){
 				return;
 			}
-
+			var colors_list = ['#00af9d','#ffb652','#cd66cc','#66bc29','#0096db','#3a7dda','#ffe100'];
+    		var randomIndex = Math.floor(Math.random() * colors_list.length);
 			ctx.beginPath();
 			ctx.rect(x,y,gridSize,gridSize);
-			ctx.fillStyle = color;
+			if (level > 1) {ctx.fillStyle = colors_list[randomIndex];} else {ctx.fillStyle = color;}
+			//ctx.fillStyle = colors_list[randomIndex];
 			ctx.fill();
 			ctx.strokeStyle= boxBorderColor;
 			ctx.lineWidth=1;
@@ -74,6 +76,7 @@ var tetrisCanvas = {
 	init:function(scene,preview){
 		this.scene = scene;
 		this.preview = preview;
+		this.levell = 1;
 		this.sceneContext = scene.getContext('2d');
 		this.previewContext = preview.getContext('2d');
 		this.gridSize = scene.width / consts.COLUMN_COUNT;
@@ -105,7 +108,7 @@ var tetrisCanvas = {
 			var row = matrix[i];
 			for(var j = 0;j<row.length;j++){
 				if (row[j]!==0){
-					drawBox(this.sceneContext,row[j],j*this.gridSize,i*this.gridSize,this.gridSize);
+					drawBox(this.sceneContext,row[j],j*this.gridSize,i*this.gridSize,this.gridSize, this.levell);
 				}
 			}
 		}	
@@ -129,7 +132,7 @@ var tetrisCanvas = {
 				if (value === 1){
 					var x = gsize *(shape.x + j);
 					var y = gsize *(shape.y + i);
-					drawBox(this.sceneContext,shape.color,x,y,gsize);
+					drawBox(this.sceneContext,shape.color,x,y,gsize,this.levell);
 				}
 			}
 		}
@@ -150,7 +153,7 @@ var tetrisCanvas = {
 				if (value === 1){
 					var x = startX + gsize * j;
 					var y = startY + gsize * i;
-					drawBox(this.previewContext,shape.color,x,y,gsize);
+					drawBox(this.previewContext,shape.color,x,y,gsize, this.levell);
 				}
 			}
 		}
@@ -528,6 +531,7 @@ Tetris.prototype = {
 		var currentTime = new Date().getTime();
 		if (currentTime - this.levelTime > consts.LEVEL_INTERVAL){
 			this.level+=1;
+			canvas.levell = this.level;
 			this.interval = calcIntervalByLevel(this.level);
 			views.setLevel(this.level);
 			this.levelTime = currentTime;
@@ -679,6 +683,33 @@ function ShapeZR()
 	this.flag = 'ZR';
 }
 
+function ShapeX()
+{
+	var state1 = [  [0, 1, 0],
+					[1, 1, 1],
+					[0, 1, 0] ];
+
+	this.states = [ state1 ];
+	this.x = 4;
+	this.y = -2;
+	this.flag = 'X';
+}
+
+function ShapeZZ()
+{
+	var state1 = [  [0, 0, 1],
+					[0, 1, 0],
+					[1, 0, 0] ];
+	
+	var state2 = [  [1, 0, 0],
+					[0, 1, 0],
+					[0, 0, 1] ];
+
+	this.states = [ state1, state2 ];
+	this.x = 4;
+	this.y = -2;
+	this.flag = 'ZZ';
+}
 /**
 Is shape can move
 @param shape: tetris shape
@@ -723,6 +754,8 @@ var isShapeCanMove = function(shape,matrix,action){
 /**
  All shapes shares the same method, use prototype for memory optimized
 */
+ShapeZZ.prototype =
+ShapeX.prototype = 
 ShapeL.prototype =
 ShapeLR.prototype =
 ShapeO.prototype =
@@ -851,7 +884,7 @@ ShapeZR.prototype = {
 */
 function randomShape()
 {
-	var result = Math.floor( Math.random() * 7 );
+	var result = Math.floor( Math.random() * 9 );
 	var shape;
 
 	switch(result)
@@ -863,6 +896,8 @@ function randomShape()
 		case 4: shape = new ShapeLR();			break;
 		case 5: shape = new ShapeZR();			break;
 		case 6: shape = new ShapeI();			break;
+		case 7: shape = new ShapeX();           break;
+		case 8: shape = new ShapeZZ();          break;
 	}
 	shape.init();
 	return shape;
