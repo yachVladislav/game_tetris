@@ -19,17 +19,41 @@
 	</div>
 	<div id="side">
 		<div id="info">
+			<ul id="videoList">
+				<li><a href="#" data-src="video/1.mp4" style="color: #45a049;">Video 1</a></li>
+				<li><a href="#" data-src="video/2.mp4" style="color: #45a049;">Video 2</a></li>
+				<li><a href="#" data-src="video/3.mp4" style="color: #45a049;">Video 3</a></li>
+			  </ul>
 			<h1 id="levelInfo">Level: <br><span id="level">1</span></h1>
 			<h2 id="scoreInfo">Score: <br><span id="score" >0</span></h2>
 			<div id="rewardInfo" class="invisible">+<span id="reward">0</span></div>
 			<canvas id="preview"></canvas>
-			<a href="index.html"><button style="background-color: #45a049; color: aliceblue; margin-top: 20vw; height: 2vw; width: 5vw;">Выйти в меню</button></a>
+			<a href="index.html"><button style="background-color: #45a049; color: aliceblue; margin-top: 15vw; height: 2vw; width: 5vw;">Выйти в меню</button></a>
 		</div>
 	</div>
+	<video id="videoPlayer" width="350" height="240" style="opacity: 0.6; position: absolute; height: 80%; video::-webkit-media-controls {
+		display:none !important;
+	  }
+	  video::-webkit-media-controls-enclosure {
+		display:none !important;
+	  }" loop>
+	</video>
 </div>
-
-
 </body>
+<script>
+	var videoList = document.getElementById("videoList");
+	var videoPlayer = document.getElementById("videoPlayer");
+
+	videoList.addEventListener("click", function(event) {
+  	event.preventDefault();
+  	if (event.target.tagName === "A") {
+		var videoSource = event.target.getAttribute("data-src");
+		videoPlayer.src = videoSource;
+		videoPlayer.load();
+		videoPlayer.play();
+  }
+});
+</script>
 <script src="dist/tetris.js"></script>
 <script>
 	(function(){
@@ -38,7 +62,6 @@
 		var storedBoardHeight = parseInt(localStorage.getItem('boardHeight'));
 		var storedSpeed = parseInt(localStorage.getItem('speed'));
 		if (storedPlayerName) {
-
 			tetris = new Tetris('tetris', storedSpeed, storedBoardWidth, storedBoardHeight);
 			tetris.start();
 		} else {
