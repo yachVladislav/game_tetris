@@ -39,6 +39,8 @@
 				<li>Стрелка вверх - Повернуть</li>
 				<li>Стрелка вниз - Ускорить падение</li>
 				<li>Пробел - падение</li>
+				<li>Shift - пауза</li>
+				<li>Alt - старт</li>
 			</ul>
 		</div>
 	</div>
@@ -75,6 +77,13 @@
 		if (storedPlayerName) {
 			tetris = new Tetris('tetris', storedSpeed, storedBoardWidth, storedBoardHeight);
 			tetris.start();
+			document.addEventListener('keydown', function(event) {
+                if (event.key === 'Shift') {
+                    tetris.pause();
+                } else if (event.key === 'Alt') {
+                    tetris.start();
+                }
+            });
 		} else {
 			alert('Настройте игру и сохраните настройки!!!');
 			window.location.href = 'index.html';

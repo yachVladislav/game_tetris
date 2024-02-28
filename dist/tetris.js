@@ -413,11 +413,13 @@ Tetris.prototype = {
 	},
 	//Start game
 	start:function(){
+		console.log('Start');
 		this.running = true;
 		window.requestAnimationFrame(utils.proxy(this._refresh,this));
 	},
 	//Pause game
 	pause:function(){
+		console.log('Pause');
 		this.running = false;
 		this.currentTime = new Date().getTime();
 		this.prevTime = this.currentTime;
