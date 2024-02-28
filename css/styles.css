@@ -10,6 +10,15 @@ body{
 	font-family: 'American Typewriter','Marker Felt';
 }
 
+#instructions{
+	right:500%;
+	top:10%;
+	position: absolute;
+	background: #6e6c6c;
+	text-align: left;
+	width: 400px;
+}
+
 #tetris{
 	left:50%;
 	top:50%;
