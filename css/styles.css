@@ -11,17 +11,17 @@ body{
 }
 
 #instructions{
-	right:500%;
-	top:10%;
+	top:1vh;
 	position: absolute;
-	background: #6e6c6c;
+	background: #555353;
 	text-align: left;
-	width: 400px;
+	width: 40vh;
+	padding-left: 2vh;
 }
 
 #tetris{
 	left:50%;
-	top:50%;
+	top:61%;
 	position: absolute;
 	background: #555;
 	
